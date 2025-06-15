@@ -13,7 +13,7 @@
   {
     "title": "Terminal Q & A, with Marking System",
     "description": "A Python-based terminal application that presents users with questions, evaluates their answers, and scores them automatically. Great for self-testing and educational purposes.",
-    "tags": ["python", "terminal", "quiz", "automation", "scoring system based on human Algorithm behavior"],
+    "tags": ["python", "terminal", "quiz", "automation", "scoring"],
     "files": [
       {
         "name": "Click here to view Terminal Q & A System",
@@ -24,11 +24,33 @@
   {
     "title": "Emmense Reader",
     "description": "An intelligent Python tool that transforms PDFs into a conversation, reads them aloud, and extracts every word—even from embedded images—so the user never misses critical content.",
-    "tags": ["python","sys-arg", "ocr", "pdf", "text-to-speech", "automation", "AI reader"],
+    "tags": ["python", "ocr", "pdf", "text-to-speech", "automation", "AI reader"],
     "files": [
       {
         "name": "Click here to view Emmense Reader",
         "url": "https://docs.google.com/document/d/181v7owPlz1L_UHmn9kOM8u1gUoG4nWkbrCQSqWgKYqo/edit?usp=sharing"
+      }
+    ]
+  },
+  {
+    "title": "Wi-Fi History Extractor",
+    "description": "A Python script that retrieves all Wi-Fi networks your computer has previously connected to, using stored credentials. Useful for auditing and network diagnostics.",
+    "tags": ["python", "network", "wifi", "automation", "security"],
+    "files": [
+      {
+        "name": "Click here to view Wi-Fi History Extractor",
+        "url": "https://docs.google.com/document/d/1Kc1qsHvguHlugi8mdLQ4ieobkXtP7RHyFIJEjpUP8iM/edit?usp=sharing"
+      }
+    ]
+  },
+  {
+    "title": "Smart HR Assistant",
+    "description": "An intelligent HR automation system built with Tkinter and OOP in Python. It calculates salaries, adds overtime pay, recognizes employee names, and interacts via voice to assist HR professionals.",
+    "tags": ["python", "tkinter", "HR", "GUI", "voice assistant", "salary", "oop","Algorithms"],
+    "files": [
+      {
+        "name": "Click here to view Smart HR Assistant",
+        "url": "https://docs.google.com/document/d/1RFXei2q7XmgR5bYciLdd2TUXj98M7B32FM0ot5VeZ-8/edit?usp=sharing"
       }
     ]
   }
