@@ -3,7 +3,6 @@
     "title": "Complete HLB App",
     "description": "A full-featured PyQt5 application that manages login, dress rental, profit tracking, and includes AI voice support. Built using OOP in Python.",
     "tags": ["python", "pyqt5", "business", "voice assistant", "GUI", "oop"],
-    "link": "https://github.com/Deeam6ix/hlb-tps-app", 
     "files": [
       {
         "name": "Complete HLB App.py",
