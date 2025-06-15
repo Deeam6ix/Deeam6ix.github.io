@@ -1,248 +1,234 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Darby's Project Hub</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: #0c1117;
-      color: #e6edf3;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Darby's Project Hub</title>
+<style>
+  body {
+    margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    transition: background-color 0.3s, color 0.3s;
+  }
 
-    header {
-      background-color: #161b22;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+  :root {
+    --bg: #0c1117;
+    --text: #e6edf3;
+    --header-bg: #161b22;
+    --card-bg: #161b22;
+    --tag-bg: #30363d;
+    --link-color: #79c0ff;
+    --btn-bg: #238636;
+  }
 
-    header h1 { margin: 0; color: #58a6ff; }
+  body.light {
+    --bg: #f5f5f5;
+    --text: #222222;
+    --header-bg: #e0e0e0;
+    --card-bg: #ffffff;
+    --tag-bg: #cccccc;
+    --link-color: #0066cc;
+    --btn-bg: #2d8cf0;
+  }
 
-    .btn-new {
-      background-color: #238636;
-      color: #fff;
-      padding: 0.6rem 1.2rem;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-    }
+  header {
+    background-color: var(--header-bg);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  header h1 {
+    margin: 0; color: #58a6ff;
+  }
 
-    .container {
-      padding: 2rem;
-    }
+  #themeToggle {
+    background-color: var(--btn-bg);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+  }
 
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
+  .container {
+    padding: 2rem;
+  }
 
-    .project-card {
-      background: #161b22;
-      border-radius: 12px;
-      padding: 1rem;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-    }
+  #searchInput {
+    width: 100%;
+    max-width: 400px;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    border: none;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    background-color: var(--card-bg);
+    color: var(--text);
+  }
 
-    .project-card h2 {
-      margin-top: 0;
-      font-size: 1.2rem;
-      color: #58a6ff;
-    }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
 
-    .project-card a {
-      display: block;
-      margin-top: 0.4rem;
-      color: #79c0ff;
-      text-decoration: none;
-      font-size: 0.9rem;
-    }
+  .project-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  }
 
-    .tag {
-      background-color: #30363d;
-      padding: 2px 8px;
-      border-radius: 8px;
-      font-size: 0.75rem;
-      display: inline-block;
-      margin: 4px 4px 0 0;
-    }
+  .project-card h2 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    color: #58a6ff;
+  }
 
-    footer {
-      text-align: center;
-      padding: 1rem;
-      background-color: #0c1117;
-      font-size: 0.8rem;
-      color: #6e7681;
-    }
+  .project-card a {
+    display: block;
+    margin-top: 0.4rem;
+    color: var(--link-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+    word-break: break-word;
+  }
 
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 999;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background-color: rgba(0, 0, 0, 0.8);
-      align-items: center;
-      justify-content: center;
-    }
+  .tag {
+    background-color: var(--tag-bg);
+    padding: 2px 8px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    display: inline-block;
+    margin: 4px 4px 0 0;
+  }
 
-    .modal-content {
-      background-color: #161b22;
-      padding: 2rem;
-      border-radius: 16px;
-      width: 90%;
-      max-width: 500px;
-    }
-
-    .modal-content input, .modal-content textarea {
-      width: 100%;
-      padding: 0.6rem;
-      margin-bottom: 1rem;
-      border-radius: 8px;
-      border: none;
-      background-color: #0d1117;
-      color: #e6edf3;
-    }
-
-    .modal-content button {
-      padding: 0.6rem 1.2rem;
-      font-weight: bold;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    .btn-submit { background-color: #238636; color: #fff; }
-    .btn-cancel { background-color: #6e7681; color: #fff; margin-left: 0.5rem; }
-  </style>
+  footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: var(--header-bg);
+    font-size: 0.8rem;
+    color: #6e7681;
+  }
+</style>
 </head>
 <body>
 
-  <header>
-    <h1>Darby's Project Hub</h1>
-    <button class="btn-new" onclick="authenticateUser()">+ Add Project</button>
-  </header>
+<header>
+  <h1>Darby's Project Hub</h1>
+  <button id="themeToggle" aria-label="deeam light/deeam dark">🌙 Dark Mode</button>
+</header>
 
-  <div class="container">
-    <div class="projects-grid" id="projectsGrid"></div>
-  </div>
+<div class="container">
+  <input type="search" id="searchInput" placeholder="Search projects by title or tags..." aria-label="Search projects" />
+  <div class="projects-grid" id="projectsGrid"></div>
+</div>
 
-  <footer>
-    &copy; 2025 Darby Mweze — Informatics Student
-  </footer>
+<footer>
+  &copy; 2025 Darby Mweze — Informatics Student
+</footer>
 
-  <!-- Modal -->
-  <div class="modal" id="projectModal">
-    <div class="modal-content">
-      <h3>Post a New Project</h3>
-      <input type="text" id="projectTitle" placeholder="Project Title" />
-      <textarea id="projectDesc" placeholder="Short Description" rows="3"></textarea>
-      <input type="text" id="projectTags" placeholder="Tags (comma-separated)" />
-      <input type="url" id="projectLink" placeholder="Optional GitHub Link" />
-      <input type="file" id="projectFiles" multiple />
-      <button class="btn-submit" onclick="addProject()">Submit</button>
-      <button class="btn-cancel" onclick="closeModal()">Cancel</button>
-    </div>
-  </div>
+<script>
+  const themeToggleBtn = document.getElementById('themeToggle');
+  const body = document.body;
+  const searchInput = document.getElementById('searchInput');
+  const projectsGrid = document.getElementById('projectsGrid');
 
-  <script>
-    const modal = document.getElementById("projectModal");
-    const grid = document.getElementById("projectsGrid");
-    const ADMIN_PASSWORD = "Deeam6ix610610"; // Change this to your secret
+  // Load theme preference
+  function loadTheme() {
+    const saved = localStorage.getItem('theme');
+    if(saved === 'light') {
+      body.classList.add('light');
+      themeToggleBtn.textContent = '🌙 Dark Mode';
+    } else {
+      body.classList.remove('light');
+      themeToggleBtn.textContent = '☀️ Light Mode';
+    }
+  }
 
-    function authenticateUser() {
-      const input = prompt("Admin password:");
-      if (input === ADMIN_PASSWORD) openModal();
-      else alert("Access denied.");
+  // Toggle theme
+  themeToggleBtn.addEventListener('click', () => {
+    body.classList.toggle('light');
+    if(body.classList.contains('light')) {
+      localStorage.setItem('theme', 'light');
+      themeToggleBtn.textContent = '🌙 Dark Mode';
+    } else {
+      localStorage.setItem('theme', 'dark');
+      themeToggleBtn.textContent = '☀️ Light Mode';
+    }
+  });
+
+  loadTheme();
+
+  // Fetch projects JSON from your GitHub repo
+  const projectsURL = 'https://raw.githubusercontent.com/Deeam6ix/Deeam6ix.github.io/main/projects.json';
+
+  let projectsData = [];
+
+  async function loadProjects() {
+    try {
+      const res = await fetch(projectsURL + '?cache=' + new Date().getTime()); // avoid caching
+      if(!res.ok) throw new Error('Network error loading projects.');
+      projectsData = await res.json();
+      renderProjects(projectsData);
+    } catch (e) {
+      projectsGrid.innerHTML = '<p style="color:#f44336;">Failed to load projects.</p>';
+      console.error(e);
+    }
+  }
+
+  // Render projects with optional filter text
+  function renderProjects(projects, filterText = '') {
+    const filter = filterText.toLowerCase();
+    projectsGrid.innerHTML = '';
+
+    const filtered = projects.filter(p => {
+      const inTitle = p.title.toLowerCase().includes(filter);
+      const inTags = p.tags.some(t => t.toLowerCase().includes(filter));
+      return inTitle || inTags;
+    });
+
+    if(filtered.length === 0) {
+      projectsGrid.innerHTML = '<p>No projects match your search.</p>';
+      return;
     }
 
-    function openModal() {
-      modal.style.display = "flex";
-    }
+    filtered.forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'project-card';
 
-    function closeModal() {
-      modal.style.display = "none";
-      document.querySelectorAll("#projectModal input, #projectModal textarea").forEach(el => el.value = "");
-    }
-
-    function saveProjects(projects) {
-      localStorage.setItem("projectsData", JSON.stringify(projects));
-    }
-
-    function loadProjects() {
-      const data = localStorage.getItem("projectsData");
-      return data ? JSON.parse(data) : [];
-    }
-
-    function renderProjects() {
-      grid.innerHTML = "";
-      loadProjects().forEach((p, index) => {
-        const card = document.createElement("div");
-        card.className = "project-card";
-        let filesHTML = "";
-        (p.files || []).forEach(file => {
-          filesHTML += `<a href="${file.url}" download="${file.name}">⬇️ ${file.name}</a>`;
+      // Files links
+      let filesHTML = '';
+      if(p.files && p.files.length > 0) {
+        p.files.forEach(f => {
+          filesHTML += `<a href="${f.url}" target="_blank" rel="noopener noreferrer" download="${f.name}">⬇️ ${f.name}</a>`;
         });
-        const tagsHTML = (p.tags || []).map(tag => `<span class="tag">${tag}</span>`).join("");
-        card.innerHTML = `
-          <h2>${p.title}</h2>
-          <p>${p.description}</p>
-          ${p.link ? `<a href="${p.link}" target="_blank">🔗 GitHub</a>` : ""}
-          ${filesHTML}
-          ${tagsHTML}
-        `;
-        grid.appendChild(card);
-      });
-    }
-
-    function addProject() {
-      const title = document.getElementById("projectTitle").value.trim();
-      const desc = document.getElementById("projectDesc").value.trim();
-      const tags = document.getElementById("projectTags").value.split(',').map(t => t.trim()).filter(Boolean);
-      const link = document.getElementById("projectLink").value.trim();
-      const filesInput = document.getElementById("projectFiles").files;
-
-      if (!title || !desc) return alert("Title and description are required.");
-
-      const filesArray = [];
-      let loaded = 0;
-
-      if (filesInput.length === 0) {
-        saveProjectNow({ title, description: desc, tags, link, files: [] });
-        return;
       }
 
-      Array.from(filesInput).forEach(file => {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          filesArray.push({
-            name: file.name,
-            url: e.target.result
-          });
-          loaded++;
-          if (loaded === filesInput.length) {
-            saveProjectNow({ title, description: desc, tags, link, files: filesArray });
-          }
-        };
-        reader.readAsDataURL(file);
-      });
-    }
+      // Tags
+      const tagsHTML = p.tags.map(t => `<span class="tag">${t}</span>`).join('');
 
-    function saveProjectNow(project) {
-      const projects = loadProjects();
-      projects.unshift(project);
-      saveProjects(projects);
-      renderProjects();
-      closeModal();
-    }
+      card.innerHTML = `
+        <h2>${p.title}</h2>
+        <p>${p.description}</p>
+        ${p.link ? `<a href="${p.link}" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>` : ''}
+        ${filesHTML}
+        <div>${tagsHTML}</div>
+      `;
 
-    window.onload = renderProjects;
-    window.onclick = e => { if (e.target === modal) closeModal(); };
-  </script>
+      projectsGrid.appendChild(card);
+    });
+  }
+
+  searchInput.addEventListener('input', (e) => {
+    renderProjects(projectsData, e.target.value);
+  });
+
+  loadProjects();
+</script>
+
 </body>
 </html>
