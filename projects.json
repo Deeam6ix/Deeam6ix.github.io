@@ -45,8 +45,8 @@
   },
   {
     "title": "Smart HR Assistant",
-    "description": "An intelligent HR automation system built with Tkinter and OOP in Python. It calculates salaries, adds overtime pay, recognizes employee names, and interacts via voice to assist HR professionals.",
-    "tags": ["python", "tkinter", "HR", "GUI", "voice assistant", "salary", "oop","Algorithms"],
+    "description": "An intelligent HR automation system built with Tkinter and in Modular Python Programming. It calculates salaries, adds overtime pay, recognizes employee names, and interacts via voice to assist HR professionals.",
+    "tags": ["python", "tkinter", "HR", "GUI", "voice assistant", "salary", "Modular programming","Algorithms"],
     "files": [
       {
         "name": "Click here to view Smart HR Assistant",
