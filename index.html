@@ -115,26 +115,23 @@
       display: inline-block;
     }
 
-    .contact-form input, .contact-form textarea {
-      width: 100%;
-      padding: 0.7rem;
-      border-radius: 10px;
-      border: none;
-      margin-bottom: 1rem;
-      background: rgba(255,255,255,0.05);
-      color: white;
-      box-shadow: inset 2px 2px 5px rgba(0,0,0,0.5);
+    .contact-details {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 12px;
+      line-height: 1.8;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
     }
 
-    .contact-form button {
-      background: var(--btn-color);
-      border: none;
-      padding: 0.7rem 2rem;
-      border-radius: 10px;
-      color: white;
-      font-weight: bold;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
-      cursor: pointer;
+    .avatar {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: url('https://i.imgur.com/9H0TDyk.gif') no-repeat center/cover;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
     }
 
     footer {
@@ -151,46 +148,45 @@
   <div>
     <a href="#about">About</a>
     <a href="#projects">Projects</a>
-    <a href="#resume">Resume</a>
     <a href="#contact">Contact</a>
   </div>
 </nav>
 
-<section id="about" class="container">
+<section id="about" class="container" data-tts="Hi! I'm Darby Mweze, an Informatics student focused on intelligent systems for business.">
   <h2 class="section-title">👤About Me</h2>
   <div class="bio-box">
     <img src="https://raw.githubusercontent.com/Deeam6ix/Deeam6ix.github.io/main/assets/me.jpg" alt="Darby Mweze">
     <p>
-      Hi! I'm <strong>Darby Mweze</strong>, an Informatics student focused on building intelligent systems for business, using Python, GUIs, and automation tools. This portfolio showcases my best work.
+      Hi! I'm <strong>Darby Mweze</strong>, an Informatics student focused on building intelligent systems for business, using Python, JavaScript, GUIs, and automation tools. This portfolio showcases my best work.
     </p>
   </div>
 </section>
 
-<section id="projects" class="container">
+<section id="projects" class="container" data-tts="Here are some of my top Informatics projects. Hover to hear more about each.">
   <h2 class="section-title">🚀 Projects</h2>
   <input type="search" id="searchInput" placeholder="Search projects..." />
   <div class="projects-grid" id="projectsGrid"></div>
 </section>
 
-<section id="resume" class="container">
+<section id="resume" class="container" data-tts="You can download my resume in PDF format below.">
   <h2 class="section-title">📄 Resume</h2>
   <p>Download my resume in PDF format below:</p>
   <a href="assets/resume.pdf" download="Darby_Mweze_Resume.pdf" style="color: #00e5ff; font-weight: bold;">⬇️ Download Resume</a>
 </section>
 
-<section id="contact" class="container">
-  <h2 class="section-title">📬 Contact Me</h2>
-  <form class="contact-form" id="contactForm">
-    <input type="text" name="name" placeholder="Your name" required />
-    <input type="email" name="email" placeholder="Your email" required />
-    <textarea name="message" rows="5" placeholder="Your message" required></textarea>
-    <button type="submit">Send Message</button>
-    <p id="formStatus"></p>
-  </form>
+<section id="contact" class="container" data-tts="Get in touch with me using the contact details below.">
+  <h2 class="section-title">📬 Contact Details</h2>
+  <div class="contact-details">
+    <p><strong>Email:</strong> deeamdarby@gmail.com</p>
+    <p><strong>Phone:</strong> +27 73 224 2267</p>
+    
+  </div>
 </section>
 
+<div class="avatar" title="Voice Assistant"></div>
+
 <footer>
-  &copy; 2025 Darby Mweze — Built with 💻 Python & Web Tech
+  &copy; 2025 Darby Mweze — Built with 💻 Python, JavaScript & Web Technology
 </footer>
 
 <script>
@@ -208,6 +204,7 @@
     projects.forEach(p => {
       const card = document.createElement('div');
       card.className = 'project-card';
+      card.setAttribute('data-tts', p.title + '. ' + p.description);
       const tags = p.tags.map(tag => `<span class='tag'>${tag}</span>`).join('');
       const files = p.files.map(f => `<a href="${f.url}" download>${f.name}</a>`).join('');
       card.innerHTML = `
@@ -222,23 +219,34 @@
 
   loadProjects();
 
-  document.getElementById('contactForm').addEventListener('submit', async function (e) {
-    e.preventDefault();
-    const form = e.target;
-    const payload = {
-      name: form.name.value,
-      email: form.email.value,
-      message: form.message.value
-    };
-    const res = await fetch('http://localhost:5000/submit', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(payload)
-    });
-    const json = await res.json();
-    document.getElementById('formStatus').textContent =
-      json.status === 'success' ? '✅ Message sent and saved!' : '❌ Error sending message.';
-    form.reset();
+  // Voice assistant logic
+  const synth = window.speechSynthesis;
+  const femaleVoicePref = "Google UK English Female";
+
+  function speak(text) {
+    if (!synth.speaking) {
+      const utter = new SpeechSynthesisUtterance(text);
+      const voices = synth.getVoices();
+      const preferred = voices.find(v => v.name.includes(femaleVoicePref)) || voices.find(v => v.name.includes("Female")) || voices[0];
+      utter.voice = preferred;
+      synth.speak(utter);
+    }
+  }
+
+  // Auto-read toggle
+  window.addEventListener('load', () => {
+    const autoSpeak = true; // change to false to disable by default
+    if (autoSpeak) {
+      document.querySelectorAll('[data-tts]').forEach(el => {
+        speak(el.getAttribute('data-tts'));
+      });
+    }
+  });
+
+  // Hover or scroll narration
+  document.querySelectorAll('[data-tts]').forEach(el => {
+    el.addEventListener('mouseenter', () => speak(el.getAttribute('data-tts')));
+    el.addEventListener('focus', () => speak(el.getAttribute('data-tts')));
   });
 </script>
 
