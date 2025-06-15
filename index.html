@@ -5,29 +5,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Darby Mweze | Informatics Portfolio</title>
   <style>
-    html {
-      scroll-behavior: smooth;
+    :root {
+      --light-blue: #aee9ff;
+      --pink: #ffc4e1;
+      --black: #1a1a1a;
+
+      --dark-light-blue: #3e6e89;
+      --dark-pink: #7b4e64;
+      --dark-black: #000000;
+
+      --light-bg: #ffffff;
+      --light-text: #000000;
+
+      --dark-bg: var(--dark-black);
+      --dark-text: #e6edf3;
     }
 
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(145deg, #0f2027, #203a43, #2c5364);
-      color: #e6edf3;
+      background-color: var(--dark-bg);
+      color: var(--dark-text);
+      transition: background-color 0.4s, color 0.4s;
     }
 
-    :root {
-      --card-bg: #161b22;
-      --text-light: #e6edf3;
-      --text-dark: #222;
-      --btn-color: #00c6ff;
+    body.light-mode {
+      background-color: var(--light-bg);
+      color: var(--light-text);
     }
 
     nav {
       position: sticky;
       top: 0;
       z-index: 1000;
-      background: rgba(22, 27, 34, 0.95);
+      background: var(--black);
       padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
@@ -36,7 +47,7 @@
     }
 
     nav a {
-      color: var(--text-light);
+      color: var(--light-blue);
       text-decoration: none;
       margin: 0 1rem;
       font-weight: bold;
@@ -44,8 +55,18 @@
     }
 
     nav a:hover {
-      color: #79c0ff;
+      color: var(--pink);
       transform: translateY(-2px);
+    }
+
+    .toggle-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .toggle-container input[type="checkbox"] {
+      transform: scale(1.5);
     }
 
     .container {
@@ -65,13 +86,13 @@
       width: 120px;
       height: 120px;
       border-radius: 50%;
-      border: 3px solid #58a6ff;
+      border: 3px solid var(--light-blue);
       box-shadow: 0 8px 16px rgba(0,0,0,0.5);
     }
 
     .section-title {
       font-size: 2rem;
-      color: #58a6ff;
+      color: var(--pink);
       margin-bottom: 1.5rem;
       text-shadow: 1px 1px 5px rgba(0,0,0,0.6);
     }
@@ -83,11 +104,15 @@
     }
 
     .project-card {
-      background: var(--card-bg);
+      background: var(--black);
       border-radius: 16px;
       padding: 1.2rem;
       box-shadow: 10px 10px 30px rgba(0,0,0,0.6);
       transition: transform 0.3s ease;
+    }
+
+    body.light-mode .project-card {
+      background: #f0f0f0;
     }
 
     .project-card:hover {
@@ -95,19 +120,19 @@
     }
 
     .project-card h2 {
-      color: #58a6ff;
+      color: var(--light-blue);
       font-size: 1.3rem;
     }
 
     .project-card a {
-      color: #79c0ff;
+      color: var(--pink);
       text-decoration: none;
       font-size: 0.9rem;
     }
 
     .tag {
-      background-color: #30363d;
-      color: white;
+      background-color: var(--pink);
+      color: black;
       border-radius: 12px;
       padding: 3px 8px;
       font-size: 0.75rem;
@@ -116,52 +141,30 @@
     }
 
     footer {
-      background: #161b22;
+      background: var(--black);
       padding: 1rem;
       color: #888;
       text-align: center;
     }
 
-    .avatar-assistant {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
+    #voice-avatar {
       width: 100px;
       height: 100px;
-      background-image: url('https://media.giphy.com/media/26AHONQ79FdWZhAI0/giphy.gif');
+      background-image: url('https://i.imgur.com/0y0y0y0.gif');
       background-size: cover;
-      z-index: 9999;
-      animation: idle 3s infinite;
+      border-radius: 50%;
+      margin: auto;
+      animation: pulse 1s infinite alternate;
+      display: none;
     }
 
-    @keyframes speaking {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-    }
-
-    .speaking {
-      animation: speaking 1s infinite;
-    }
-
-    .tts-toggle {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 9999;
-      background: #00c6ff;
-      color: white;
-      padding: 10px;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      font-weight: bold;
+    @keyframes pulse {
+      from { transform: scale(1); }
+      to { transform: scale(1.1); }
     }
   </style>
 </head>
 <body>
-
-<button class="tts-toggle" onclick="toggleTTS()">🔊 Toggle Voice</button>
-<div class="avatar-assistant" id="avatar"></div>
 
 <nav>
   <div>
@@ -169,42 +172,72 @@
     <a href="#projects">Projects</a>
     <a href="#contact">Contact</a>
   </div>
+  <div class="toggle-container">
+    <label>Voice</label>
+    <input type="checkbox" id="voiceToggle" checked>
+    <label>Theme</label>
+    <input type="checkbox" id="themeToggle">
+  </div>
 </nav>
 
 <section id="about" class="container">
-  <h2 class="section-title" data-tts>👤About Me</h2>
+  <h2 class="section-title">👤 About Me</h2>
   <div class="bio-box">
     <img src="https://raw.githubusercontent.com/Deeam6ix/Deeam6ix.github.io/main/assets/me.jpg" alt="Darby Mweze">
-    <p data-tts>
-      Hi! I am <strong>Darby Mweze</strong>, an Informatics student focused on building intelligent systems for businesses using Python, JavaScript, GUIs, and automation tools. This portfolio showcases my best work.
+    <p>
+      Hi! I'm <strong>Darby Mweze</strong>, an Informatics student focused on building intelligent systems for business, using Python, GUIs, and automation tools. This portfolio showcases my best work.
     </p>
   </div>
 </section>
 
 <section id="projects" class="container">
-  <h2 class="section-title" data-tts>🚀 Projects</h2>
+  <h2 class="section-title">🚀 Projects</h2>
   <input type="search" id="searchInput" placeholder="Search projects..." />
   <div class="projects-grid" id="projectsGrid"></div>
 </section>
 
 <section id="contact" class="container">
-  <h2 class="section-title" data-tts>📞 Contact Details</h2>
-  <ul data-tts>
-    <li>Email: deeamdarby@gmail.com</li>
-    <li>Phone: +27 73 224 2267</li>
-    
-  </ul>
+  <h2 class="section-title">📬 Contact Details</h2>
+  <p>Email: example@email.com</p>
+  <p>Phone: +1234567890</p>
+  <p>LinkedIn: <a href="https://linkedin.com/in/example" target="_blank">linkedin.com/in/example</a></p>
 </section>
 
+<div id="voice-avatar"></div>
+
 <footer>
-  &copy; 2025  Built by Darby Mweze — with 💻 Python, JavaScript & Web Technology
+  &copy; 2025 Darby Mweze — Built with 💻 Python & Web Tech
 </footer>
 
 <script>
+  const voiceEnabled = document.getElementById('voiceToggle');
+  const avatar = document.getElementById('voice-avatar');
+  const themeToggle = document.getElementById('themeToggle');
+
+  function speak(text) {
+    if (!voiceEnabled.checked) return;
+    const msg = new SpeechSynthesisUtterance(text);
+    msg.voice = speechSynthesis.getVoices().find(v => v.name.includes('Zira'));
+    avatar.style.display = 'block';
+    speechSynthesis.speak(msg);
+    msg.onend = () => avatar.style.display = 'none';
+  }
+
+  window.onload = () => {
+    speak("Welcome to Darby Mweze's Portfolio Website. Scroll to learn more.");
+  };
+
+  document.querySelectorAll('section').forEach(section => {
+    section.addEventListener('mouseenter', () => {
+      speak(section.querySelector('h2')?.innerText || 'Section');
+    });
+  });
+
+  themeToggle.addEventListener('change', () => {
+    document.body.classList.toggle('light-mode');
+  });
+
   const projectsURL = 'https://raw.githubusercontent.com/Deeam6ix/Deeam6ix.github.io/main/projects.json';
-  const synth = window.speechSynthesis;
-  let ttsEnabled = true;
-  const avatar = document.getElementById('avatar');
 
   async function loadProjects() {
     const res = await fetch(projectsURL);
@@ -229,32 +262,6 @@
       grid.appendChild(card);
     });
   }
-
-  function speak(text) {
-    if (!ttsEnabled || !text.trim()) return;
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.voice = [...synth.getVoices()].find(v => v.name.includes('Zira')) || null;
-    avatar.classList.add('speaking');
-    utterance.onend = () => avatar.classList.remove('speaking');
-    synth.speak(utterance);
-  }
-
-  function toggleTTS() {
-    ttsEnabled = !ttsEnabled;
-    if (!ttsEnabled) synth.cancel();
-  }
-
-  function speakVisibleText() {
-    document.querySelectorAll('[data-tts]').forEach(el => speak(el.textContent));
-  }
-
-  window.addEventListener('load', () => {
-    speakVisibleText();
-    document.querySelectorAll('[data-tts]').forEach(el => {
-      el.addEventListener('mouseenter', () => speak(el.textContent));
-      el.addEventListener('focus', () => speak(el.textContent));
-    });
-  });
 
   loadProjects();
 </script>
