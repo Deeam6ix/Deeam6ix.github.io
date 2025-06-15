@@ -9,5 +9,16 @@
         "url": "https://docs.google.com/document/d/15RHcuLElv9DGJ7OK-TynS0WOtT1cwR6sCB0G10mNshk/edit?usp=sharing"
       }
     ]
+  },
+  {
+    "title": "Terminal Q & A, with Marking System",
+    "description": "A Python-based terminal application that presents users with questions, evaluates their answers, and scores them automatically. Great for self-testing and educational purposes.",
+    "tags": ["python", "terminal", "quiz", "automation", "scoring"],
+    "files": [
+      {
+        "name": "Click here to view Terminal Q & A System",
+        "url": "https://docs.google.com/document/d/1cozXbI3yhULpKDWQURPa1EMKRiRQWg1cMwchmaFQJLk/edit?usp=sharing"
+      }
+    ]
   }
 ]
