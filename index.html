@@ -3,31 +3,31 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Code Projects</title>
+  <title>Darby's Project Hub</title>
   <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-      color: #fff;
+      background: #0c1117;
+      color: #e6edf3;
     }
 
     header {
-      background-color: rgba(0, 0, 0, 0.4);
+      background-color: #161b22;
       padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
-    header h1 { margin: 0; }
+    header h1 { margin: 0; color: #58a6ff; }
 
     .btn-new {
-      background-color: #00bcd4;
+      background-color: #238636;
       color: #fff;
       padding: 0.6rem 1.2rem;
       border: none;
-      border-radius: 12px;
+      border-radius: 8px;
       cursor: pointer;
       font-weight: bold;
     }
@@ -43,37 +43,30 @@
     }
 
     .project-card {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 16px;
-      padding: 1rem;
-      text-align: center;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-    }
-
-    .project-card img {
-      max-width: 100%;
+      background: #161b22;
       border-radius: 12px;
-      margin-bottom: 1rem;
-      max-height: 160px;
-      object-fit: cover;
+      padding: 1rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
     }
 
     .project-card h2 {
       margin-top: 0;
       font-size: 1.2rem;
+      color: #58a6ff;
     }
 
     .project-card a {
       display: block;
-      margin-top: 0.5rem;
-      color: #00bcd4;
+      margin-top: 0.4rem;
+      color: #79c0ff;
       text-decoration: none;
+      font-size: 0.9rem;
     }
 
     .tag {
-      background-color: #0097a7;
-      padding: 3px 8px;
-      border-radius: 12px;
+      background-color: #30363d;
+      padding: 2px 8px;
+      border-radius: 8px;
       font-size: 0.75rem;
       display: inline-block;
       margin: 4px 4px 0 0;
@@ -82,8 +75,9 @@
     footer {
       text-align: center;
       padding: 1rem;
-      background-color: rgba(0, 0, 0, 0.2);
+      background-color: #0c1117;
       font-size: 0.8rem;
+      color: #6e7681;
     }
 
     .modal {
@@ -92,17 +86,17 @@
       z-index: 999;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background-color: rgba(0, 0, 0, 0.6);
+      background-color: rgba(0, 0, 0, 0.8);
       align-items: center;
       justify-content: center;
     }
 
     .modal-content {
-      background-color: #1e1e2f;
+      background-color: #161b22;
       padding: 2rem;
-      border-radius: 20px;
+      border-radius: 16px;
       width: 90%;
-      max-width: 450px;
+      max-width: 500px;
     }
 
     .modal-content input, .modal-content textarea {
@@ -111,8 +105,8 @@
       margin-bottom: 1rem;
       border-radius: 8px;
       border: none;
-      background-color: #333;
-      color: #fff;
+      background-color: #0d1117;
+      color: #e6edf3;
     }
 
     .modal-content button {
@@ -123,15 +117,15 @@
       cursor: pointer;
     }
 
-    .btn-submit { background-color: #00bcd4; color: #fff; }
-    .btn-cancel { background-color: #444; color: #fff; margin-left: 0.5rem; }
+    .btn-submit { background-color: #238636; color: #fff; }
+    .btn-cancel { background-color: #6e7681; color: #fff; margin-left: 0.5rem; }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>Darby's Coding Projects</h1>
-    <button class="btn-new" onclick="requestAccess()">+ New Project</button>
+    <h1>Darby's Project Hub</h1>
+    <button class="btn-new" onclick="authenticateUser()">+ Add Project</button>
   </header>
 
   <div class="container">
@@ -139,20 +133,19 @@
   </div>
 
   <footer>
-    &copy; 2025 Darby Mweze (Informatics Student) | Secured Admin Upload
+    &copy; 2025 Darby Mweze — Informatics Student
   </footer>
 
   <!-- Modal -->
   <div class="modal" id="projectModal">
     <div class="modal-content">
-      <h3>Add New Project</h3>
+      <h3>Post a New Project</h3>
       <input type="text" id="projectTitle" placeholder="Project Title" />
-      <textarea id="projectDesc" placeholder="Description" rows="3"></textarea>
+      <textarea id="projectDesc" placeholder="Short Description" rows="3"></textarea>
       <input type="text" id="projectTags" placeholder="Tags (comma-separated)" />
-      <input type="url" id="projectLink" placeholder="GitHub Link (optional)" />
-      <input type="file" id="projectImage" accept="image/*" />
-      <input type="file" id="projectCode" accept=".py" />
-      <button class="btn-submit" onclick="addProject()">Post</button>
+      <input type="url" id="projectLink" placeholder="Optional GitHub Link" />
+      <input type="file" id="projectFiles" multiple />
+      <button class="btn-submit" onclick="addProject()">Submit</button>
       <button class="btn-cancel" onclick="closeModal()">Cancel</button>
     </div>
   </div>
@@ -160,11 +153,11 @@
   <script>
     const modal = document.getElementById("projectModal");
     const grid = document.getElementById("projectsGrid");
-    const ADMIN_PASS = "Deeam6ix610610"; // <--- CHANGE THIS TO YOUR OWN
+    const ADMIN_PASSWORD = "Deeam6ix610610"; // Change this to your secret
 
-    function requestAccess() {
-      const input = prompt("Enter admin password:");
-      if (input === ADMIN_PASS) openModal();
+    function authenticateUser() {
+      const input = prompt("Admin password:");
+      if (input === ADMIN_PASSWORD) openModal();
       else alert("Access denied.");
     }
 
@@ -178,26 +171,29 @@
     }
 
     function saveProjects(projects) {
-      localStorage.setItem("myProjects", JSON.stringify(projects));
+      localStorage.setItem("projectsData", JSON.stringify(projects));
     }
 
     function loadProjects() {
-      const data = localStorage.getItem("myProjects");
+      const data = localStorage.getItem("projectsData");
       return data ? JSON.parse(data) : [];
     }
 
     function renderProjects() {
       grid.innerHTML = "";
-      loadProjects().forEach(p => {
+      loadProjects().forEach((p, index) => {
         const card = document.createElement("div");
         card.className = "project-card";
-        const tagsHTML = (p.tags || []).map(t => `<span class="tag">${t}</span>`).join("");
+        let filesHTML = "";
+        (p.files || []).forEach(file => {
+          filesHTML += `<a href="${file.url}" download="${file.name}">⬇️ ${file.name}</a>`;
+        });
+        const tagsHTML = (p.tags || []).map(tag => `<span class="tag">${tag}</span>`).join("");
         card.innerHTML = `
-          ${p.image ? `<img src="${p.image}" alt="Preview" />` : ""}
           <h2>${p.title}</h2>
           <p>${p.description}</p>
           ${p.link ? `<a href="${p.link}" target="_blank">🔗 GitHub</a>` : ""}
-          ${p.code ? `<a href="${p.code}" download="${p.title}.py">⬇️ Download Code</a>` : ""}
+          ${filesHTML}
           ${tagsHTML}
         `;
         grid.appendChild(card);
@@ -207,38 +203,37 @@
     function addProject() {
       const title = document.getElementById("projectTitle").value.trim();
       const desc = document.getElementById("projectDesc").value.trim();
-      const tags = document.getElementById("projectTags").value.trim().split(',').map(t => t.trim());
+      const tags = document.getElementById("projectTags").value.split(',').map(t => t.trim()).filter(Boolean);
       const link = document.getElementById("projectLink").value.trim();
-      const imageFile = document.getElementById("projectImage").files[0];
-      const codeFile = document.getElementById("projectCode").files[0];
+      const filesInput = document.getElementById("projectFiles").files;
 
-      if (!title || !desc) return alert("Title and description required.");
+      if (!title || !desc) return alert("Title and description are required.");
 
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        const imageData = imageFile ? e.target.result : null;
+      const filesArray = [];
+      let loaded = 0;
 
-        if (codeFile) {
-          const codeReader = new FileReader();
-          codeReader.onload = function(evt) {
-            const codeBlob = new Blob([evt.target.result], { type: "text/x-python" });
-            const codeURL = URL.createObjectURL(codeBlob);
-            saveNewProject({ title, description: desc, tags, link, image: imageData, code: codeURL });
-          };
-          codeReader.readAsText(codeFile);
-        } else {
-          saveNewProject({ title, description: desc, tags, link, image: imageData, code: null });
-        }
-      };
-
-      if (imageFile) {
-        reader.readAsDataURL(imageFile);
-      } else {
-        reader.onload({ target: { result: null } });
+      if (filesInput.length === 0) {
+        saveProjectNow({ title, description: desc, tags, link, files: [] });
+        return;
       }
+
+      Array.from(filesInput).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          filesArray.push({
+            name: file.name,
+            url: e.target.result
+          });
+          loaded++;
+          if (loaded === filesInput.length) {
+            saveProjectNow({ title, description: desc, tags, link, files: filesArray });
+          }
+        };
+        reader.readAsDataURL(file);
+      });
     }
 
-    function saveNewProject(project) {
+    function saveProjectNow(project) {
       const projects = loadProjects();
       projects.unshift(project);
       saveProjects(projects);
@@ -249,6 +244,5 @@
     window.onload = renderProjects;
     window.onclick = e => { if (e.target === modal) closeModal(); };
   </script>
-
 </body>
 </html>
