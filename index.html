@@ -12,76 +12,46 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      transition: background-color 0.3s, color 0.3s;
+      background: linear-gradient(145deg, #0f2027, #203a43, #2c5364);
+      color: #e6edf3;
     }
 
     :root {
-      --bg: #0c1117;
-      --text: #e6edf3;
-      --header-bg: #161b22;
       --card-bg: #161b22;
-      --tag-bg: #30363d;
-      --link-color: #79c0ff;
-      --btn-bg: #238636;
+      --text-light: #e6edf3;
+      --text-dark: #222;
+      --btn-color: #00c6ff;
     }
 
-    body.light {
-      --bg: #f5f5f5;
-      --text: #222222;
-      --header-bg: #e0e0e0;
-      --card-bg: #ffffff;
-      --tag-bg: #cccccc;
-      --link-color: #0066cc;
-      --btn-bg: #2d8cf0;
-    }
-
-    /* Navbar */
     nav {
       position: sticky;
       top: 0;
-      z-index: 999;
-      background: var(--header-bg);
+      z-index: 1000;
+      background: rgba(22, 27, 34, 0.95);
       padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid #333;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
     }
 
     nav a {
-      color: var(--text);
+      color: var(--text-light);
       text-decoration: none;
       margin: 0 1rem;
       font-weight: bold;
+      transition: transform 0.2s;
     }
 
     nav a:hover {
-      color: var(--link-color);
+      color: #79c0ff;
+      transform: translateY(-2px);
     }
 
-    #themeToggle {
-      background-color: var(--btn-bg);
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      color: white;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    /* Sections */
-    section {
+    .container {
       padding: 4rem 2rem;
       max-width: 960px;
       margin: auto;
-    }
-
-    .section-title {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      color: #58a6ff;
     }
 
     .bio-box {
@@ -96,6 +66,14 @@
       height: 120px;
       border-radius: 50%;
       border: 3px solid #58a6ff;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+    }
+
+    .section-title {
+      font-size: 2rem;
+      color: #58a6ff;
+      margin-bottom: 1.5rem;
+      text-shadow: 1px 1px 5px rgba(0,0,0,0.6);
     }
 
     .projects-grid {
@@ -106,61 +84,64 @@
 
     .project-card {
       background: var(--card-bg);
-      border-radius: 12px;
-      padding: 1rem;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      border-radius: 16px;
+      padding: 1.2rem;
+      box-shadow: 10px 10px 30px rgba(0,0,0,0.6);
+      transition: transform 0.3s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
     }
 
     .project-card h2 {
-      margin-top: 0;
-      font-size: 1.2rem;
       color: #58a6ff;
+      font-size: 1.3rem;
     }
 
     .project-card a {
-      display: block;
-      margin-top: 0.4rem;
-      color: var(--link-color);
+      color: #79c0ff;
       text-decoration: none;
       font-size: 0.9rem;
-      word-break: break-word;
     }
 
     .tag {
-      background-color: var(--tag-bg);
-      padding: 2px 8px;
-      border-radius: 8px;
+      background-color: #30363d;
+      color: white;
+      border-radius: 12px;
+      padding: 3px 8px;
       font-size: 0.75rem;
+      margin: 3px 4px 0 0;
       display: inline-block;
-      margin: 4px 4px 0 0;
     }
 
     .contact-form input, .contact-form textarea {
       width: 100%;
-      padding: 0.6rem;
-      border-radius: 8px;
+      padding: 0.7rem;
+      border-radius: 10px;
       border: none;
       margin-bottom: 1rem;
-      background-color: var(--card-bg);
-      color: var(--text);
+      background: rgba(255,255,255,0.05);
+      color: white;
+      box-shadow: inset 2px 2px 5px rgba(0,0,0,0.5);
     }
 
     .contact-form button {
-      background-color: var(--btn-bg);
-      color: white;
-      padding: 0.7rem 1.5rem;
+      background: var(--btn-color);
       border: none;
-      border-radius: 8px;
+      padding: 0.7rem 2rem;
+      border-radius: 10px;
+      color: white;
       font-weight: bold;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
       cursor: pointer;
     }
 
     footer {
+      background: #161b22;
+      padding: 1rem;
+      color: #888;
       text-align: center;
-      padding: 1.5rem;
-      font-size: 0.85rem;
-      color: #6e7681;
-      background-color: var(--header-bg);
     }
   </style>
 </head>
@@ -173,127 +154,92 @@
     <a href="#resume">Resume</a>
     <a href="#contact">Contact</a>
   </div>
-  <button id="themeToggle">🌙 Dark Mode</button>
 </nav>
 
-<!-- About Section -->
-<section id="about">
-  <h2 class="section-title">👋 About Me</h2>
+<section id="about" class="container">
+  <h2 class="section-title">👤About Me</h2>
   <div class="bio-box">
-    <img src="WhatsApp Image 2025-06-15 at 05.38.21_0fca0588" alt="Darby Mweze">
+    <img src="https://raw.githubusercontent.com/Deeam6ix/Deeam6ix.github.io/main/assets/me.jpg" alt="Darby Mweze">
     <p>
-      Hi! I'm <strong>Darby Mweze</strong>, an Informatics student with a passion for solving business problems using clean code, structured systems, and intelligent design. I specialize in Python, PyQt5, and GUI development. Welcome to my project hub!
+      Hi! I'm <strong>Darby Mweze</strong>, an Informatics student focused on building intelligent systems for business, using Python, GUIs, and automation tools. This portfolio showcases my best work.
     </p>
   </div>
 </section>
 
-<!-- Projects Section -->
-<section id="projects">
+<section id="projects" class="container">
   <h2 class="section-title">🚀 Projects</h2>
   <input type="search" id="searchInput" placeholder="Search projects..." />
   <div class="projects-grid" id="projectsGrid"></div>
 </section>
 
-<!-- Resume Section -->
-<section id="resume">
+<section id="resume" class="container">
   <h2 class="section-title">📄 Resume</h2>
-  <p>You can download my resume as a PDF:</p>
-  <a href="assets/resume.pdf" download="Darby_Mweze_Resume.pdf" style="color: var(--link-color); font-weight: bold;">⬇️ Download Resume</a>
+  <p>Download my resume in PDF format below:</p>
+  <a href="assets/resume.pdf" download="Darby_Mweze_Resume.pdf" style="color: #00e5ff; font-weight: bold;">⬇️ Download Resume</a>
 </section>
 
-<!-- Contact Section -->
-<section id="contact">
+<section id="contact" class="container">
   <h2 class="section-title">📬 Contact Me</h2>
-  <p>You can reach me directly via this form:</p>
-  <form class="contact-form" action="https://formspree.io/f/yourFormID" method="POST">
+  <form class="contact-form" id="contactForm">
     <input type="text" name="name" placeholder="Your name" required />
     <input type="email" name="email" placeholder="Your email" required />
     <textarea name="message" rows="5" placeholder="Your message" required></textarea>
     <button type="submit">Send Message</button>
+    <p id="formStatus"></p>
   </form>
 </section>
 
 <footer>
-  &copy; 2025 Darby Mweze — Informatics Student | <a href="https://github.com/Deeam6ix" style="color: inherit;">@Deeam6ix</a>
+  &copy; 2025 Darby Mweze — Built with 💻 Python & Web Tech
 </footer>
 
 <script>
-  const themeToggleBtn = document.getElementById('themeToggle');
-  const body = document.body;
-  const searchInput = document.getElementById('searchInput');
-  const projectsGrid = document.getElementById('projectsGrid');
-
-  function loadTheme() {
-    const saved = localStorage.getItem('theme');
-    if(saved === 'light') {
-      body.classList.add('light');
-      themeToggleBtn.textContent = '🌙 Dark Mode';
-    } else {
-      body.classList.remove('light');
-      themeToggleBtn.textContent = '☀️ Light Mode';
-    }
-  }
-
-  themeToggleBtn.addEventListener('click', () => {
-    body.classList.toggle('light');
-    const mode = body.classList.contains('light') ? 'light' : 'dark';
-    localStorage.setItem('theme', mode);
-    themeToggleBtn.textContent = mode === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode';
-  });
-
-  loadTheme();
-
   const projectsURL = 'https://raw.githubusercontent.com/Deeam6ix/Deeam6ix.github.io/main/projects.json';
-  let projectsData = [];
 
   async function loadProjects() {
-    try {
-      const res = await fetch(projectsURL + '?cache=' + new Date().getTime());
-      projectsData = await res.json();
-      renderProjects(projectsData);
-    } catch (e) {
-      projectsGrid.innerHTML = '<p style="color:#f44336;">Failed to load projects.</p>';
-    }
+    const res = await fetch(projectsURL);
+    const data = await res.json();
+    renderProjects(data);
   }
 
-  function renderProjects(projects, filterText = '') {
-    const filter = filterText.toLowerCase();
-    projectsGrid.innerHTML = '';
-
-    const filtered = projects.filter(p => {
-      const inTitle = p.title.toLowerCase().includes(filter);
-      const inTags = p.tags.some(t => t.toLowerCase().includes(filter));
-      return inTitle || inTags;
-    });
-
-    filtered.forEach(p => {
+  function renderProjects(projects) {
+    const grid = document.getElementById('projectsGrid');
+    grid.innerHTML = '';
+    projects.forEach(p => {
       const card = document.createElement('div');
       card.className = 'project-card';
-
-      let filesHTML = '';
-      if (p.files && p.files.length > 0) {
-        p.files.forEach(f => {
-          filesHTML += `<a href="${f.url}" target="_blank" rel="noopener noreferrer" download="${f.name}">⬇️ ${f.name}</a>`;
-        });
-      }
-
-      const tagsHTML = p.tags.map(t => `<span class="tag">${t}</span>`).join('');
-
+      const tags = p.tags.map(tag => `<span class='tag'>${tag}</span>`).join('');
+      const files = p.files.map(f => `<a href="${f.url}" download>${f.name}</a>`).join('');
       card.innerHTML = `
-        ${p.image ? `<img src="${p.image}" alt="Preview" style="max-width:100%; border-radius:12px; margin-bottom:1rem;">` : ''}
         <h2>${p.title}</h2>
         <p>${p.description}</p>
-        ${p.link ? `<a href="${p.link}" target="_blank">🔗 GitHub</a>` : ''}
-        ${filesHTML}
-        <div>${tagsHTML}</div>
+        ${files}
+        <div>${tags}</div>
       `;
-
-      projectsGrid.appendChild(card);
+      grid.appendChild(card);
     });
   }
 
-  searchInput.addEventListener('input', e => renderProjects(projectsData, e.target.value));
   loadProjects();
+
+  document.getElementById('contactForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const form = e.target;
+    const payload = {
+      name: form.name.value,
+      email: form.email.value,
+      message: form.message.value
+    };
+    const res = await fetch('http://localhost:5000/submit', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload)
+    });
+    const json = await res.json();
+    document.getElementById('formStatus').textContent =
+      json.status === 'success' ? '✅ Message sent and saved!' : '❌ Error sending message.';
+    form.reset();
+  });
 </script>
 
 </body>
