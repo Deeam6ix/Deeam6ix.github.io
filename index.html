@@ -115,34 +115,53 @@
       display: inline-block;
     }
 
-    .contact-details {
-      background: var(--card-bg);
-      padding: 1.5rem;
-      border-radius: 12px;
-      line-height: 1.8;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
-    }
-
-    .avatar {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      background: url('https://i.imgur.com/9H0TDyk.gif') no-repeat center/cover;
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
-    }
-
     footer {
       background: #161b22;
       padding: 1rem;
       color: #888;
       text-align: center;
     }
+
+    .avatar-assistant {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 100px;
+      height: 100px;
+      background-image: url('https://media.giphy.com/media/26AHONQ79FdWZhAI0/giphy.gif');
+      background-size: cover;
+      z-index: 9999;
+      animation: idle 3s infinite;
+    }
+
+    @keyframes speaking {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .speaking {
+      animation: speaking 1s infinite;
+    }
+
+    .tts-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+      background: #00c6ff;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
+
+<button class="tts-toggle" onclick="toggleTTS()">🔊 Toggle Voice</button>
+<div class="avatar-assistant" id="avatar"></div>
 
 <nav>
   <div>
@@ -152,45 +171,40 @@
   </div>
 </nav>
 
-<section id="about" class="container" data-tts="Hi! I'm Darby Mweze, an Informatics student focused on intelligent systems for business.">
-  <h2 class="section-title">👤About Me</h2>
+<section id="about" class="container">
+  <h2 class="section-title" data-tts>👤About Me</h2>
   <div class="bio-box">
     <img src="https://raw.githubusercontent.com/Deeam6ix/Deeam6ix.github.io/main/assets/me.jpg" alt="Darby Mweze">
-    <p>
-      Hi! I'm <strong>Darby Mweze</strong>, an Informatics student focused on building intelligent systems for business, using Python, JavaScript, GUIs, and automation tools. This portfolio showcases my best work.
+    <p data-tts>
+      Hi! I am <strong>Darby Mweze</strong>, an Informatics student focused on building intelligent systems for businesses using Python, JavaScript, GUIs, and automation tools. This portfolio showcases my best work.
     </p>
   </div>
 </section>
 
-<section id="projects" class="container" data-tts="Here are some of my top Informatics projects. Hover to hear more about each.">
-  <h2 class="section-title">🚀 Projects</h2>
+<section id="projects" class="container">
+  <h2 class="section-title" data-tts>🚀 Projects</h2>
   <input type="search" id="searchInput" placeholder="Search projects..." />
   <div class="projects-grid" id="projectsGrid"></div>
 </section>
 
-<section id="resume" class="container" data-tts="You can download my resume in PDF format below.">
-  <h2 class="section-title">📄 Resume</h2>
-  <p>Download my resume in PDF format below:</p>
-  <a href="assets/resume.pdf" download="Darby_Mweze_Resume.pdf" style="color: #00e5ff; font-weight: bold;">⬇️ Download Resume</a>
-</section>
-
-<section id="contact" class="container" data-tts="Get in touch with me using the contact details below.">
-  <h2 class="section-title">📬 Contact Details</h2>
-  <div class="contact-details">
-    <p><strong>Email:</strong> deeamdarby@gmail.com</p>
-    <p><strong>Phone:</strong> +27 73 224 2267</p>
+<section id="contact" class="container">
+  <h2 class="section-title" data-tts>📞 Contact Details</h2>
+  <ul data-tts>
+    <li>Email: deeamdarby@gmail.com</li>
+    <li>Phone: +27 73 224 2267</li>
     
-  </div>
+  </ul>
 </section>
-
-<div class="avatar" title="Voice Assistant"></div>
 
 <footer>
-  &copy; 2025 Darby Mweze — Built with 💻 Python, JavaScript & Web Technology
+  &copy; 2025  Built by Darby Mweze — with 💻 Python, JavaScript & Web Technology
 </footer>
 
 <script>
   const projectsURL = 'https://raw.githubusercontent.com/Deeam6ix/Deeam6ix.github.io/main/projects.json';
+  const synth = window.speechSynthesis;
+  let ttsEnabled = true;
+  const avatar = document.getElementById('avatar');
 
   async function loadProjects() {
     const res = await fetch(projectsURL);
@@ -204,7 +218,6 @@
     projects.forEach(p => {
       const card = document.createElement('div');
       card.className = 'project-card';
-      card.setAttribute('data-tts', p.title + '. ' + p.description);
       const tags = p.tags.map(tag => `<span class='tag'>${tag}</span>`).join('');
       const files = p.files.map(f => `<a href="${f.url}" download>${f.name}</a>`).join('');
       card.innerHTML = `
@@ -217,37 +230,33 @@
     });
   }
 
-  loadProjects();
-
-  // Voice assistant logic
-  const synth = window.speechSynthesis;
-  const femaleVoicePref = "Google UK English Female";
-
   function speak(text) {
-    if (!synth.speaking) {
-      const utter = new SpeechSynthesisUtterance(text);
-      const voices = synth.getVoices();
-      const preferred = voices.find(v => v.name.includes(femaleVoicePref)) || voices.find(v => v.name.includes("Female")) || voices[0];
-      utter.voice = preferred;
-      synth.speak(utter);
-    }
+    if (!ttsEnabled || !text.trim()) return;
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.voice = [...synth.getVoices()].find(v => v.name.includes('Zira')) || null;
+    avatar.classList.add('speaking');
+    utterance.onend = () => avatar.classList.remove('speaking');
+    synth.speak(utterance);
   }
 
-  // Auto-read toggle
+  function toggleTTS() {
+    ttsEnabled = !ttsEnabled;
+    if (!ttsEnabled) synth.cancel();
+  }
+
+  function speakVisibleText() {
+    document.querySelectorAll('[data-tts]').forEach(el => speak(el.textContent));
+  }
+
   window.addEventListener('load', () => {
-    const autoSpeak = true; // change to false to disable by default
-    if (autoSpeak) {
-      document.querySelectorAll('[data-tts]').forEach(el => {
-        speak(el.getAttribute('data-tts'));
-      });
-    }
+    speakVisibleText();
+    document.querySelectorAll('[data-tts]').forEach(el => {
+      el.addEventListener('mouseenter', () => speak(el.textContent));
+      el.addEventListener('focus', () => speak(el.textContent));
+    });
   });
 
-  // Hover or scroll narration
-  document.querySelectorAll('[data-tts]').forEach(el => {
-    el.addEventListener('mouseenter', () => speak(el.getAttribute('data-tts')));
-    el.addEventListener('focus', () => speak(el.getAttribute('data-tts')));
-  });
+  loadProjects();
 </script>
 
 </body>
