@@ -13,11 +13,22 @@
   {
     "title": "Terminal Q & A, with Marking System",
     "description": "A Python-based terminal application that presents users with questions, evaluates their answers, and scores them automatically. Great for self-testing and educational purposes.",
-    "tags": ["python", "difflib", "quiz", "automation", "human-like marking system"],
+    "tags": ["python", "terminal", "quiz", "automation", "scoring"],
     "files": [
       {
         "name": "Click here to view Terminal Q & A System",
         "url": "https://docs.google.com/document/d/1cozXbI3yhULpKDWQURPa1EMKRiRQWg1cMwchmaFQJLk/edit?usp=sharing"
+      }
+    ]
+  },
+  {
+    "title": "Emmense Reader",
+    "description": "An intelligent Python tool that transforms PDFs into a conversation, reads them aloud, and extracts every word—even from embedded images—so the user never misses critical content.",
+    "tags": ["python","sys-arg", "ocr", "pdf", "text-to-speech", "automation", "AI reader"],
+    "files": [
+      {
+        "name": "Click here to view Emmense Reader",
+        "url": "https://docs.google.com/document/d/181v7owPlz1L_UHmn9kOM8u1gUoG4nWkbrCQSqWgKYqo/edit?usp=sharing"
       }
     ]
   }
