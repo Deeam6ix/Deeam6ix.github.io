@@ -186,7 +186,7 @@
     <img src="https://avatars.githubusercontent.com/u/583231?v=4" alt="Voice Assistant Avatar">
 
     <p>
-      Hi! I'm <strong>Darby Mweze</strong>, an Informatics student focused on building intelligent systems for business, using Python, GUIs, and automation tools. This portfolio showcases my best work.
+      Hi! I am <strong>Darby Mweze</strong>, an Informatics student focused on building intelligent systems for businesses using Python, JavaScript, GUIs, and automation tools. This portfolio showcases my best work.
     </p>
   </div>
 </section>
@@ -199,15 +199,14 @@
 
 <section id="contact" class="container">
   <h2 class="section-title">📬 Contact Details</h2>
-  <p>Email: example@email.com</p>
-  <p>Phone: +1234567890</p>
-  <p>LinkedIn: <a href="https://linkedin.com/in/example" target="_blank">linkedin.com/in/example</a></p>
-</section>
+  <p>Email: deeamdarby@gmail.com </p>
+  <p>Phone: +27 73 224 2267</p>
+  
 
 <div id="voice-avatar"></div>
 
 <footer>
-  &copy; 2025 Darby Mweze — Built with 💻 Python & Web Tech
+  &copy; 2025 Built by Darby Mweze — with 💻 Python, JavaScript & Web Tech
 </footer>
 
 <script>
@@ -225,12 +224,23 @@
   }
 
   window.onload = () => {
-    speak("Welcome to Darby Mweze's Portfolio Website. Scroll to learn more.");
+    speak("Welcome to Darby Mweze's Portfolio Website. I'm delighted to have you here. Feel free to explore my projects and skills. If you like what you see, I would be honored to contribute to your team.");
   };
 
   document.querySelectorAll('section').forEach(section => {
     section.addEventListener('mouseenter', () => {
-      speak(section.querySelector('h2')?.innerText || 'Section');
+      const sectionTitle = section.querySelector('h2')?.innerText || 'Section';
+      let message = '';
+      if (section.id === 'about') {
+        message = "This is the About Me section. Learn more about Darby Mweze's background and expertise.";
+      } else if (section.id === 'projects') {
+        message = "Welcome to the Projects section. Here you can explore a selection of Darby's best work. Feel free to ask for details.";
+      } else if (section.id === 'contact') {
+        message = "You're in the Contact section. If you like what you see, please don't hesitate to get in touch. I'd love to hear from you.";
+      } else {
+        message = sectionTitle;
+      }
+      speak(message);
     });
   });
 
