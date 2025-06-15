@@ -6,17 +6,13 @@
     "link": "https://github.com/Deeam6ix/hlb-tps-app", 
     "files": [
       {
-        "name": "main.py",
-        "url": "https://raw.githubusercontent.com/Deeam6ix/Deeam6ix.github.io/main/files/hlb_app/main.py"
+        "name": "Complete HLB App.py",
+        "url": "https://github.com/Deeam6ix/Deeam6ix.github.io/blob/main/Complete%20HLB%20App.py"
       },
       {
-        "name": "hlb_ui.ui",
+        "name": "download code",
         "url": "https://raw.githubusercontent.com/Deeam6ix/Deeam6ix.github.io/main/files/hlb_app/hlb_ui.ui"
       },
-      {
-        "name": "assets/logo.png",
-        "url": "https://raw.githubusercontent.com/Deeam6ix/Deeam6ix.github.io/main/files/hlb_app/assets/logo.png"
-      }
     ]
   }
 ]
