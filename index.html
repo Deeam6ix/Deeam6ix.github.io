@@ -1,134 +1,220 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Darby's Project Hub</title>
-<style>
-  body {
-    margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--bg);
-    color: var(--text);
-    transition: background-color 0.3s, color 0.3s;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Darby Mweze | Informatics Portfolio</title>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
 
-  :root {
-    --bg: #0c1117;
-    --text: #e6edf3;
-    --header-bg: #161b22;
-    --card-bg: #161b22;
-    --tag-bg: #30363d;
-    --link-color: #79c0ff;
-    --btn-bg: #238636;
-  }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      transition: background-color 0.3s, color 0.3s;
+    }
 
-  body.light {
-    --bg: #f5f5f5;
-    --text: #222222;
-    --header-bg: #e0e0e0;
-    --card-bg: #ffffff;
-    --tag-bg: #cccccc;
-    --link-color: #0066cc;
-    --btn-bg: #2d8cf0;
-  }
+    :root {
+      --bg: #0c1117;
+      --text: #e6edf3;
+      --header-bg: #161b22;
+      --card-bg: #161b22;
+      --tag-bg: #30363d;
+      --link-color: #79c0ff;
+      --btn-bg: #238636;
+    }
 
-  header {
-    background-color: var(--header-bg);
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  header h1 {
-    margin: 0; color: #58a6ff;
-  }
+    body.light {
+      --bg: #f5f5f5;
+      --text: #222222;
+      --header-bg: #e0e0e0;
+      --card-bg: #ffffff;
+      --tag-bg: #cccccc;
+      --link-color: #0066cc;
+      --btn-bg: #2d8cf0;
+    }
 
-  #themeToggle {
-    background-color: var(--btn-bg);
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    color: white;
-    cursor: pointer;
-    font-weight: bold;
-  }
+    /* Navbar */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: var(--header-bg);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #333;
+    }
 
-  .container {
-    padding: 2rem;
-  }
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      margin: 0 1rem;
+      font-weight: bold;
+    }
 
-  #searchInput {
-    width: 100%;
-    max-width: 400px;
-    padding: 0.5rem 1rem;
-    border-radius: 10px;
-    border: none;
-    margin-bottom: 1.5rem;
-    font-size: 1rem;
-    background-color: var(--card-bg);
-    color: var(--text);
-  }
+    nav a:hover {
+      color: var(--link-color);
+    }
 
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-  }
+    #themeToggle {
+      background-color: var(--btn-bg);
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
 
-  .project-card {
-    background: var(--card-bg);
-    border-radius: 12px;
-    padding: 1rem;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  }
+    /* Sections */
+    section {
+      padding: 4rem 2rem;
+      max-width: 960px;
+      margin: auto;
+    }
 
-  .project-card h2 {
-    margin-top: 0;
-    font-size: 1.2rem;
-    color: #58a6ff;
-  }
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #58a6ff;
+    }
 
-  .project-card a {
-    display: block;
-    margin-top: 0.4rem;
-    color: var(--link-color);
-    text-decoration: none;
-    font-size: 0.9rem;
-    word-break: break-word;
-  }
+    .bio-box {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
 
-  .tag {
-    background-color: var(--tag-bg);
-    padding: 2px 8px;
-    border-radius: 8px;
-    font-size: 0.75rem;
-    display: inline-block;
-    margin: 4px 4px 0 0;
-  }
+    .bio-box img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 3px solid #58a6ff;
+    }
 
-  footer {
-    text-align: center;
-    padding: 1rem;
-    background-color: var(--header-bg);
-    font-size: 0.8rem;
-    color: #6e7681;
-  }
-</style>
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    .project-card h2 {
+      margin-top: 0;
+      font-size: 1.2rem;
+      color: #58a6ff;
+    }
+
+    .project-card a {
+      display: block;
+      margin-top: 0.4rem;
+      color: var(--link-color);
+      text-decoration: none;
+      font-size: 0.9rem;
+      word-break: break-word;
+    }
+
+    .tag {
+      background-color: var(--tag-bg);
+      padding: 2px 8px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      display: inline-block;
+      margin: 4px 4px 0 0;
+    }
+
+    .contact-form input, .contact-form textarea {
+      width: 100%;
+      padding: 0.6rem;
+      border-radius: 8px;
+      border: none;
+      margin-bottom: 1rem;
+      background-color: var(--card-bg);
+      color: var(--text);
+    }
+
+    .contact-form button {
+      background-color: var(--btn-bg);
+      color: white;
+      padding: 0.7rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.85rem;
+      color: #6e7681;
+      background-color: var(--header-bg);
+    }
+  </style>
 </head>
 <body>
 
-<header>
-  <h1>Darby's Project Hub</h1>
-  <button id="themeToggle" aria-label="deeam light/deeam dark">🌙 Dark Mode</button>
-</header>
+<nav>
+  <div>
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#resume">Resume</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <button id="themeToggle">🌙 Dark Mode</button>
+</nav>
 
-<div class="container">
-  <input type="search" id="searchInput" placeholder="Search projects by title or tags..." aria-label="Search projects" />
+<!-- About Section -->
+<section id="about">
+  <h2 class="section-title">👋 About Me</h2>
+  <div class="bio-box">
+    <img src="https://raw.githubusercontent.com/Deeam6ix/Deeam6ix.github.io/main/assets/me.jpg" alt="Darby Mweze">
+    <p>
+      Hi! I'm <strong>Darby Mweze</strong>, an Informatics student with a passion for solving business problems using clean code, structured systems, and intelligent design. I specialize in Python, PyQt5, and GUI development. Welcome to my project hub!
+    </p>
+  </div>
+</section>
+
+<!-- Projects Section -->
+<section id="projects">
+  <h2 class="section-title">🚀 Projects</h2>
+  <input type="search" id="searchInput" placeholder="Search projects..." />
   <div class="projects-grid" id="projectsGrid"></div>
-</div>
+</section>
+
+<!-- Resume Section -->
+<section id="resume">
+  <h2 class="section-title">📄 Resume</h2>
+  <p>You can download my resume as a PDF:</p>
+  <a href="assets/resume.pdf" download="Darby_Mweze_Resume.pdf" style="color: var(--link-color); font-weight: bold;">⬇️ Download Resume</a>
+</section>
+
+<!-- Contact Section -->
+<section id="contact">
+  <h2 class="section-title">📬 Contact Me</h2>
+  <p>You can reach me directly via this form:</p>
+  <form class="contact-form" action="https://formspree.io/f/yourFormID" method="POST">
+    <input type="text" name="name" placeholder="Your name" required />
+    <input type="email" name="email" placeholder="Your email" required />
+    <textarea name="message" rows="5" placeholder="Your message" required></textarea>
+    <button type="submit">Send Message</button>
+  </form>
+</section>
 
 <footer>
-  &copy; 2025 Darby Mweze — Informatics Student
+  &copy; 2025 Darby Mweze — Informatics Student | <a href="https://github.com/Deeam6ix" style="color: inherit;">@Deeam6ix</a>
 </footer>
 
 <script>
@@ -137,7 +223,6 @@
   const searchInput = document.getElementById('searchInput');
   const projectsGrid = document.getElementById('projectsGrid');
 
-  // Load theme preference
   function loadTheme() {
     const saved = localStorage.getItem('theme');
     if(saved === 'light') {
@@ -149,38 +234,28 @@
     }
   }
 
-  // Toggle theme
   themeToggleBtn.addEventListener('click', () => {
     body.classList.toggle('light');
-    if(body.classList.contains('light')) {
-      localStorage.setItem('theme', 'light');
-      themeToggleBtn.textContent = '🌙 Dark Mode';
-    } else {
-      localStorage.setItem('theme', 'dark');
-      themeToggleBtn.textContent = '☀️ Light Mode';
-    }
+    const mode = body.classList.contains('light') ? 'light' : 'dark';
+    localStorage.setItem('theme', mode);
+    themeToggleBtn.textContent = mode === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode';
   });
 
   loadTheme();
 
-  // Fetch projects JSON from your GitHub repo
   const projectsURL = 'https://raw.githubusercontent.com/Deeam6ix/Deeam6ix.github.io/main/projects.json';
-
   let projectsData = [];
 
   async function loadProjects() {
     try {
-      const res = await fetch(projectsURL + '?cache=' + new Date().getTime()); // avoid caching
-      if(!res.ok) throw new Error('Network error loading projects.');
+      const res = await fetch(projectsURL + '?cache=' + new Date().getTime());
       projectsData = await res.json();
       renderProjects(projectsData);
     } catch (e) {
       projectsGrid.innerHTML = '<p style="color:#f44336;">Failed to load projects.</p>';
-      console.error(e);
     }
   }
 
-  // Render projects with optional filter text
   function renderProjects(projects, filterText = '') {
     const filter = filterText.toLowerCase();
     projectsGrid.innerHTML = '';
@@ -191,30 +266,24 @@
       return inTitle || inTags;
     });
 
-    if(filtered.length === 0) {
-      projectsGrid.innerHTML = '<p>No projects match your search.</p>';
-      return;
-    }
-
     filtered.forEach(p => {
       const card = document.createElement('div');
       card.className = 'project-card';
 
-      // Files links
       let filesHTML = '';
-      if(p.files && p.files.length > 0) {
+      if (p.files && p.files.length > 0) {
         p.files.forEach(f => {
           filesHTML += `<a href="${f.url}" target="_blank" rel="noopener noreferrer" download="${f.name}">⬇️ ${f.name}</a>`;
         });
       }
 
-      // Tags
       const tagsHTML = p.tags.map(t => `<span class="tag">${t}</span>`).join('');
 
       card.innerHTML = `
+        ${p.image ? `<img src="${p.image}" alt="Preview" style="max-width:100%; border-radius:12px; margin-bottom:1rem;">` : ''}
         <h2>${p.title}</h2>
         <p>${p.description}</p>
-        ${p.link ? `<a href="${p.link}" target="_blank" rel="noopener noreferrer">🔗 GitHub</a>` : ''}
+        ${p.link ? `<a href="${p.link}" target="_blank">🔗 GitHub</a>` : ''}
         ${filesHTML}
         <div>${tagsHTML}</div>
       `;
@@ -223,10 +292,7 @@
     });
   }
 
-  searchInput.addEventListener('input', (e) => {
-    renderProjects(projectsData, e.target.value);
-  });
-
+  searchInput.addEventListener('input', e => renderProjects(projectsData, e.target.value));
   loadProjects();
 </script>
 
