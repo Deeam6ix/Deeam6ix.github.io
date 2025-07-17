@@ -1,295 +1,276 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>HLB Dress Hire & Buy</title>
-  <style>
-    :root {
-      --black: #000000;
-      --white: #ffffff;
-      --purple: #9c27b0;
-      --purple-dark: #7b1fa2;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Darby Mweze | Informatics Portfolio</title>
 
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: var(--black);
-      color: var(--white);
-      text-align: center;
-    }
+    <style>
+        :root {
+            --light-blue: #aee9ff;
+            --pink: #ffc4e1;
+            --black: #1a1a1a;
+            --dark-light-blue: #3e6e89;
+            --dark-pink: #7b4e64;
+            --dark-black: #000000;
+            --light-bg: #ffffff;
+            --light-text: #000000;
+            --dark-bg: var(--dark-black);
+            --dark-text: #e6edf3;
+        }
 
-    header {
-      background-color: var(--purple);
-      padding: 30px 20px;
-      font-size: 2em;
-      font-weight: 600;
-      text-shadow: 1px 1px 3px var(--black);
-    }
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+            transition: background-color 0.4s, color 0.4s;
+        }
 
-    main {
-      padding: 30px 10px;
-      max-width: 800px;
-      margin: auto;
-    }
+        body.light-mode {
+            background-color: var(--light-bg);
+            color: var(--light-text);
+        }
 
-    .section {
-      display: none;
-      margin-top: 30px;
-    }
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--black);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+        }
 
-    button {
-      background-color: var(--purple);
-      border: none;
-      color: var(--white);
-      padding: 14px 28px;
-      margin: 10px;
-      font-size: 1.1em;
-      font-weight: bold;
-      border-radius: 8px;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(156, 39, 176, 0.4);
-      transition: 0.3s ease;
-    }
+        nav a {
+            color: var(--light-blue);
+            text-decoration: none;
+            margin: 0 1rem;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
 
-    button:hover {
-      background-color: var(--purple-dark);
-      transform: scale(1.03);
-    }
+        nav a:hover {
+            color: var(--pink);
+            transform: translateY(-2px);
+        }
 
-    .card {
-      background-color: #121212;
-      border: 1px solid var(--white);
-      padding: 18px;
-      border-radius: 10px;
-      margin: 20px auto;
-      width: 90%;
-      max-width: 450px;
-      box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
-    }
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-    input {
-      padding: 10px;
-      width: 90%;
-      margin: 10px auto;
-      border-radius: 4px;
-      border: none;
-      font-size: 1em;
-      background-color: #1e1e1e;
-      color: var(--white);
-    }
+        .toggle-container input[type="checkbox"] {
+            transform: scale(1.5);
+        }
 
-    .ref-box {
-      margin: 20px 0 10px;
-      font-weight: bold;
-      color: var(--purple);
-      font-size: 1.1em;
-      background-color: #1c1c1c;
-      padding: 10px;
-      border-radius: 6px;
-      display: inline-block;
-    }
+        .container {
+            padding: 4rem 2rem;
+            max-width: 960px;
+            margin: auto;
+        }
 
-    h2, h3, h4 {
-      margin-bottom: 10px;
-    }
+        .bio-box {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
 
-    @media (max-width: 600px) {
-      button {
-        width: 90%;
-        margin: 8px auto;
-      }
-      input {
-        width: 95%;
-      }
-    }
-  </style>
+        .bio-box img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid var(--light-blue);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: var(--pink);
+            margin-bottom: 1.5rem;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            background: var(--black);
+            border-radius: 16px;
+            padding: 1.2rem;
+            box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.6);
+            transition: transform 0.3s ease;
+        }
+
+        body.light-mode .project-card {
+            background: #f0f0f0;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-card h2 {
+            color: var(--light-blue);
+            font-size: 1.3rem;
+        }
+
+        .project-card a {
+            color: var(--pink);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .tag {
+            background-color: var(--pink);
+            color: black;
+            border-radius: 12px;
+            padding: 3px 8px;
+            font-size: 0.75rem;
+            margin: 3px 4px 0 0;
+            display: inline-block;
+        }
+
+        footer {
+            background: var(--black);
+            padding: 1rem;
+            color: #888;
+            text-align: center;
+        }
+
+        #voice-avatar {
+            width: 100px;
+            height: 100px;
+            background-image: url('https://imgur.com/gallery/time-skips-are-real-fPU30L2');
+            background-size: cover;
+            border-radius: 50%;
+            margin: auto;
+            animation: pulse 1s infinite alternate;
+            display: none;
+        }
+
+        @keyframes pulse {
+            from {
+                transform: scale(1);
+            }
+
+            to {
+                transform: scale(1.1);
+            }
+        }
+    </style>
 </head>
+
 <body>
-  <header>👗 HLB Dress Hire & Buy</header>
-  <main>
-    <div>
-      <button onclick="showSection('hire')">Hire a Dress</button>
-      <button onclick="showSection('buy')">Buy a Dress</button>
-      <button onclick="showSection('checkout')">Checkout</button>
-    </div>
 
-    <!-- Hire Section -->
-    <div class="section" id="hireSection">
-      <h2>Dresses to Hire</h2>
-      <div id="hireList"></div>
-      <button onclick="showSection('home')">⬅ Return</button>
-    </div>
+    <nav>
+        <div>
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+        </div>
 
-    <!-- Buy Section -->
-    <div class="section" id="buySection">
-      <h2>Dresses to Buy</h2>
-      <div id="buyList"></div>
-      <button onclick="showSection('home')">⬅ Return</button>
-    </div>
+        <div class="toggle-container">
+            <label>Voice</label>
+            <input type="checkbox" id="voiceToggle" checked>
+            <label>Theme</label>
+            <input type="checkbox" id="themeToggle">
+        </div>
+    </nav>
 
-    <!-- Checkout Section -->
-    <div class="section" id="checkoutSection">
-      <h2>Checkout</h2>
-      <div id="checkoutList"></div>
-      <h3>Total: R<span id="totalPrice">0</span></h3>
+    <section id="about" class="container">
+        <h2 class="section-title">About Me</h2>
+        <div class="bio-box">
+            <img src="https://via.placeholder.com/120" alt="Darby Mweze">
+            <p>Hi! I am <strong>Darby Mweze</strong>, an Informatics student focused on building intelligent systems.</p>
+        </div>
+    </section>
 
-      <div>
-        <h4>Choose Payment Method:</h4>
-        <button onclick="cashPayment()">💵 Cash on Delivery</button>
-        <button onclick="eftPayment()">💳 EFT</button>
-      </div>
+    <section id="projects" class="container">
+        <h2 class="section-title">Projects</h2>
+        <input type="search" id="searchInput" placeholder="Search projects...">
+        <div class="projects-grid" id="projectsGrid"></div>
+    </section>
 
-      <div class="ref-box">Your Reference Number: <span id="refCode"></span></div>
+    <section id="contact" class="container">
+        <h2 class="section-title">Contact Details</h2>
+        <p>Email: deeamdarby@gmail.com</p>
+        <p>Phone: +27 73 224 2267</p>
+        <div id="voice-avatar"></div>
+    </section>
 
-      <!-- Cash Info -->
-      <div id="cashForm" style="display:none">
-        <input type="text" id="address" placeholder="Enter full delivery address"/><br/>
-        <button onclick="sendCashOrder()">Send via WhatsApp</button>
-      </div>
+    <footer>&copy; 2025 Built by Darby Mweze - with Python, JavaScript & Web Tech</footer>
 
-      <!-- EFT Info -->
-      <div id="eftForm" style="display:none">
-        <input type="text" id="refName" placeholder="Your Name" />
-        <input type="text" id="refPhone" placeholder="Your Phone Number" />
-        <button onclick="sendEFTOrder()">Send via WhatsApp</button>
-      </div>
+    <script>
+        const voiceEnabled = document.getElementById('voiceToggle');
+        const avatar = document.getElementById('voice-avatar');
+        const themeToggle = document.getElementById('themeToggle');
 
-      <button onclick="showSection('home')">⬅ Return</button>
-    </div>
-  </main>
+        function speak(text) {
+            if (!voiceEnabled.checked) return;
+            const msg = new SpeechSynthesisUtterance(text);
+            msg.voice = speechSynthesis.getVoices().find(v => v.name.includes('Zira')) || null;
+            avatar.style.display = 'block';
+            speechSynthesis.speak(msg);
+            msg.onend = () => avatar.style.display = 'none';
+        }
 
-  <script>
-    const hireDresses = [
-      { id: 1, name: "Purple Elegance", price: 150, available: true },
-      { id: 2, name: "Pink Royale", price: 130, available: false },
-      { id: 3, name: "Golden Hour", price: 180, available: true },
-    ];
+        window.onload = () => {
+            speak("Welcome to Darby Mweze's Portfolio Website. I'm delighted to have you here.");
 
-    const buyDresses = [
-      { id: 4, name: "Queen Vibe", price: 800 },
-      { id: 5, name: "Blossom Babe", price: 950 },
-      { id: 6, name: "Sunset Chic", price: 990 },
-    ];
+            document.querySelectorAll('section').forEach(section => {
+                section.addEventListener('mouseenter', () => {
+                    const sectionTitle = section.querySelector('h2')?.innerText || 'Section';
+                    let message = '';
+                    if (section.id === 'about') {
+                        message = "This is the About Me section. Learn more about Darby Mweze's background and expertise.";
+                    } else if (section.id === 'projects') {
+                        message = "Welcome to the Projects section. Here you can explore a selection of Darby's best work.";
+                    } else if (section.id === 'contact') {
+                        message = "You're in the Contact section. If you like what you see, please don't hesitate to get in touch.";
+                    } else {
+                        message = sectionTitle;
+                    }
+                    speak(message);
+                });
+            });
+        };
 
-    let cart = [];
-    let referenceNumber = generateRef();
+        themeToggle.addEventListener('change', () => {
+            document.body.classList.toggle('light-mode');
+        });
 
-    function showSection(section) {
-      document.querySelectorAll('.section').forEach(sec => sec.style.display = 'none');
-      if (section === 'hire') {
-        document.getElementById('hireSection').style.display = 'block';
-        renderHire();
-      } else if (section === 'buy') {
-        document.getElementById('buySection').style.display = 'block';
-        renderBuy();
-      } else if (section === 'checkout') {
-        document.getElementById('checkoutSection').style.display = 'block';
-        renderCheckout();
-      }
-    }
+        const projectsURL = 'https://raw.githubusercontent.com/Deeam6ix/Deeam6ix.github.io/main/projects.json';
 
-    function renderHire() {
-      const container = document.getElementById('hireList');
-      container.innerHTML = '';
-      hireDresses.forEach(dress => {
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.innerHTML = `
-          <h3>${dress.name}</h3>
-          <p>Price: R${dress.price}</p>
-          <p>Status: ${dress.available ? '✅ Available' : '❌ Not Available'}</p>
-          ${dress.available ? `
-            <input type="date" id="date_${dress.id}" />
-            <button onclick="addToCart('${dress.name}', ${dress.price}, document.getElementById('date_${dress.id}').value)">Add to Cart</button>
-          ` : ''}
-        `;
-        container.appendChild(card);
-      });
-    }
+        async function loadProjects() {
+            const res = await fetch(projectsURL);
+            const data = await res.json();
+            renderProjects(data);
+        }
 
-    function renderBuy() {
-      const container = document.getElementById('buyList');
-      container.innerHTML = '';
-      buyDresses.forEach(dress => {
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.innerHTML = `
-          <h3>${dress.name}</h3>
-          <p>Price: R${dress.price}</p>
-          <button onclick="addToCart('${dress.name}', ${dress.price}, 'Buy Now')">Add to Cart</button>
-        `;
-        container.appendChild(card);
-      });
-    }
+        function renderProjects(projects) {
+            const grid = document.getElementById('projectsGrid');
+            grid.innerHTML = '';
+            projects.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'project-card';
+                const tags = p.tags.map(tag => `<span class='tag'>${tag}</span>`).join('');
+                const files = p.files.map(f => `<a href="${f.url}" download>${f.name}</a>`).join('');
+                card.innerHTML = `<h2>${p.title}</h2><p>${p.description}</p>${files}<div>${tags}</div>`;
+                grid.appendChild(card);
+            });
+        }
 
-    function addToCart(name, price, info) {
-      if (!info) {
-        alert("Please choose a date.");
-        return;
-      }
-      cart.push({ name, price, info });
-      alert(`${name} added to cart!`);
-    }
-
-    function renderCheckout() {
-      const container = document.getElementById('checkoutList');
-      container.innerHTML = '';
-      let total = 0;
-      cart.forEach(item => {
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.innerHTML = `
-          <h4>${item.name}</h4>
-          <p>Price: R${item.price}</p>
-          <p>Info: ${item.info}</p>
-        `;
-        total += item.price;
-        container.appendChild(card);
-      });
-      document.getElementById('totalPrice').innerText = total + 20;
-      document.getElementById('refCode').innerText = referenceNumber;
-    }
-
-    function cashPayment() {
-      document.getElementById('cashForm').style.display = 'block';
-      document.getElementById('eftForm').style.display = 'none';
-    }
-
-    function eftPayment() {
-      document.getElementById('eftForm').style.display = 'block';
-      document.getElementById('cashForm').style.display = 'none';
-    }
-
-    function sendCashOrder() {
-      const address = document.getElementById('address').value;
-      if (!address) return alert("Enter your full address!");
-      let message = `HLB Cash on Delivery:%0ARef: ${referenceNumber}%0AAddress: ${address}%0AItems:%0A`;
-      cart.forEach(item => {
-        message += `- ${item.name} (R${item.price}) [${item.info}]%0A`;
-      });
-      message += `Total incl R20 delivery: R${cart.reduce((a, b) => a + b.price, 0) + 20}`;
-      window.open(`https://wa.me/27696345791?text=${message}`, '_blank');
-    }
-
-    function sendEFTOrder() {
-      const name = document.getElementById('refName').value;
-      const phone = document.getElementById('refPhone').value;
-      if (!name || !phone) return alert("Fill in all EFT details!");
-      let message = `HLB EFT Payment:%0ARef: ${referenceNumber}%0AName: ${name}%0APhone: ${phone}%0AItems:%0A`;
-      cart.forEach(item => {
-        message += `- ${item.name} (R${item.price}) [${item.info}]%0A`;
-      });
-      message += `Total incl R20 delivery: R${cart.reduce((a, b) => a + b.price, 0) + 20}`;
-      window.open(`https://wa.me/27696345791?text=${message}`, '_blank');
-    }
-
-    function generateRef() {
-      return 'HLB-' + Math.random().toString(36).substr(2, 6).toUpperCase();
-    }
-
-    showSection('home');
-  </script>
+        loadProjects();
+    </script>
 </body>
+
 </html>
